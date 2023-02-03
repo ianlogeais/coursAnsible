@@ -1,0 +1,10 @@
+---
+
+- hosts: Tour_Ansible_G2:ansible_host
+  tasks:
+  - name: Creating a file with content
+    copy:
+      dest: "/home/ansiblevm4/test.txt"
+      content: |
+        ok
+

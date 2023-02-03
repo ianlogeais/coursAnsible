@@ -1,0 +1,13 @@
+- name: Install and secure MariaDB
+  hosts: all
+  become: yes
+  vars:
+    mariadb_root_password: ansiblevm4
+  roles:
+    - role: geerlingguy.mysql
+      vars:
+        mariadb_root_password: "{{ mariadb_root_password }}"
+        mariadb_root_password_update: false
+        mariadb_remove_anonymous_users: true
+        mariadb_remove_test_database: true
+        mariadb_root_remote_access: false

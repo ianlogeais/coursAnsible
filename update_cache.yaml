@@ -1,0 +1,10 @@
+---
+
+- name: Mettre à jour le cache APT
+  hosts: Tour_Ansible_G2:ansible_host
+  become: yes
+  tasks:
+  - name:  "apt-get update"
+    apt:
+      update_cache: yes
+    become: true

@@ -1,0 +1,21 @@
+--- 
+
+- name: Configurer les privilèges pour l'utilisateur mdbuser
+  hosts: all
+  gather_facts: false
+  become: yes
+  vars:
+    root_password: ansiblevm4
+  tasks:
+    - name: Connecter à la base de données MySQL en tant que root
+      community.mysql.mysql_query:
+        login_user: root
+        login_password: "{{ root_password }}"
+        query: |
+          CREATE USER 'mdbuser'@'localhost' IDENTIFIED BY 'Epsi2022 !';
+          GRANT ALL PRIVILEGES ON *.* TO 'mdbuser'@'localhost' WITH GRANT OPTION;
+          FLUSH PRIVILEGES;
+
+    - name: Activer le service mariadb
+      shell: systemctl enable mariadb
+      become: yes

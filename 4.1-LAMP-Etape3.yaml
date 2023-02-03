@@ -1,0 +1,7 @@
+--- 
+
+- hosts: all
+  become: true
+  user: ansiblevm4
+  roles:
+    - enable_apache_modules

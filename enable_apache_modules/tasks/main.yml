@@ -1,0 +1,15 @@
+---
+# tasks file for .
+- name: Enable the Apache modules
+  command: a2enmod rewrite
+  ignore_errors: yes
+- name: Enable mod_deflate
+  command: a2enmod deflate
+  ignore_errors: yes
+- name: Enable mod_headers
+  command: a2enmod headers
+  ignore_errors: yes
+- name: restart apache2
+  service:
+    name: apache2
+    state: restarted

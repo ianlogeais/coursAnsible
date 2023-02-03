@@ -1,0 +1,56 @@
+---
+
+- hosts: all
+  become: true
+  user: ansiblevm4
+
+  tasks:
+
+  - name: Install PHP
+    apt:
+      name: php
+      state: present
+
+  - name: Install PHP-FPM
+    apt:
+      name: php-fpm
+      state: present
+
+  - name: Enable Apache modules
+    command: a2enmod proxy_fcgi setenvif
+    ignore_errors: yes
+
+  - name: Enable PHP-FPM configuration
+    command: a2enconf php7.4-fpm
+    ignore_errors: yes
+
+  - name: Restart Apache
+    service:
+      name: apache2
+      state: restarted
+
+  - name: Enable PHP-FPM
+    command: systemctl enable php7.4-fpm
+    ignore_errors: yes
+
+  - name: Install multiple PHP packages
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - php-cli
+        - php-curl
+        - php-gd
+        - php-intl
+        - php-memcache
+        - php-xml
+        - php-zip
+        - php-mbstring
+        - php-json
+        - php-mysql
+
+  - name: Restart Apache
+    service:
+      name: apache2
+      state: restarted 

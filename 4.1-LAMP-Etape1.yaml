@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  become: true
+  user: ansiblevm4
+
+  tasks:
+# UPDATE ET UPGRADE
+    - name: Mise à jour 
+      apt: update_cache=yes force_apt_get=yes
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Full upgrade
+      apt: upgrade=yes update_cache=yes
+
+    - name: Install Apache2
+      apt: name=apache2 state=present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

@@ -1,0 +1,7 @@
+---
+
+- name: Etape3 Playbook
+  hosts: all
+  tasks:
+    - name: Import playbook
+    import_playbook: 4.1-LAMP-Etape3.yaml
